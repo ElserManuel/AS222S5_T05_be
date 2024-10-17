@@ -7,8 +7,9 @@ services:
       dockerfile: Dockerfile
     image: elsermanuel/elsermanueldocker
     ports:
-      - "8085:8085"
+      - "8081:8081"
     environment:
       - DATABASE_URL=${URL_MONGO}
       - API_KEY=${URL_CLOUD}
+      - URL_MONGO=${URL_MONGO}
 
