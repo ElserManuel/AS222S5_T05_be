@@ -1,5 +1,4 @@
 name: SonarCloud + Docker Image
-
 on:
   push:
     branches:
