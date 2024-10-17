@@ -6,8 +6,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.2.3</version>
-        <relativePath/> 
-		<!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
     <groupId>Vallegrande.edu.pe</groupId>
     <artifactId>SpringAPIGROQ</artifactId>
@@ -17,7 +16,12 @@
     <properties>
         <java.version>21</java.version>
         <spring-cloud.version>2023.0.0</spring-cloud.version>
+        
+        <!-- Sonar properties -->
+        <sonar.organization>elsermanuel</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
+    
     <dependencies>
         <!-- MongoDB Reactive -->
         <dependency>
