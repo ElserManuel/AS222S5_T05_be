@@ -1,5 +1,6 @@
 name: SonarCloud + Docker Image
 
+
 on:
   push:
     branches:
@@ -65,7 +66,7 @@ jobs:
           echo "URL_CLOUD=${{ secrets.URL_CLOUD }}" >> $GITHUB_ENV
           echo "URL_END=${{ secrets.URL_END }}" >> $GITHUB_ENV
           echo "URL_MONGO=${{ secrets.URL_MONGO }}" >> $GITHUB_ENV
-      
+
       - name: Run Spring with the specified configuration
         run: |
           java -jar target/SpringAPIGROQ-0.0.1-SNAPSHOT.jar \
