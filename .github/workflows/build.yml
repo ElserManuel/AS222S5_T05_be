@@ -3,11 +3,11 @@ on:
   push:
     branches:
       - main
-      - develop  # Añadir la rama develop para que también se ejecute aquí
+      - develop  # Se ejecutará en las ramas main y develop
   pull_request:
     branches:
       - main
-      - develop  # Para que también se ejecuten los PR en develop
+      - develop  # Se ejecutará en pull requests hacia las ramas main y develop
     types: [opened, synchronize, reopened]
 jobs:
   build:
@@ -16,12 +16,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0  # Clonación completa para una mejor relevancia del análisis
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
-          java-version: 21
-          distribution: 'zulu' # Alternative distribution options are available.
+          java-version: '21'  # Asegúrate de usar Java 21
+          distribution: 'zulu'  # O considera usar otra distribución como 'temurin'
       - name: Cache SonarCloud packages
         uses: actions/cache@v4
         with:
@@ -36,6 +36,6 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Build and analyze
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Necesario para obtener información del PR
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # Token de SonarCloud
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=ElserManuel_AS222S5_T05_be
