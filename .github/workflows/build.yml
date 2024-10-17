@@ -1,4 +1,5 @@
 name: SonarCloud + Docker Image
+
 on:
   push:
     branches:
@@ -47,18 +48,17 @@ jobs:
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=ElserManuel_AS222S5_T05_be
 
       # Docker steps to be executed only on develop branch
+      - name: Log in to Docker Hub
+        if: github.ref == 'refs/heads/develop'  # Solo ejecutar en la rama develop
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
       - name: Build and push Docker image
         if: github.ref == 'refs/heads/develop'  # Solo ejecutar en la rama develop
         uses: docker/build-push-action@v5
         with:
           context: .  # Usar el contexto actual del repositorio
           push: true  # Push automático a Docker Hub
-          tags: ${{ secrets.DOCKER_USERNAME }}/nombre-de-tu-imagen:latest  # Reemplaza con el nombre de la imagen
-          
-      - name: Log in to Docker Hub
-        if: github.ref == 'refs/heads/develop'
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
+          tags: elsermanuel/elsermanueldocker:latest  # Nombre de la imagen en Docker Hub
