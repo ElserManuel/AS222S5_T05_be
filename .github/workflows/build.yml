@@ -3,7 +3,11 @@ on:
   push:
     branches:
       - main
+      - develop  # Añadir la rama develop para que también se ejecute aquí
   pull_request:
+    branches:
+      - main
+      - develop  # Para que también se ejecuten los PR en develop
     types: [opened, synchronize, reopened]
 jobs:
   build:
