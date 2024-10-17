@@ -71,4 +71,4 @@ jobs:
 
       - name: Run Spring with the specified configuration
         run: |
-          java -jar target/your-app.jar --groqcloud.api.key=${{ env.URL_CLOUD }} --groqcloud.api.endpoint=${{ env.URL_END }} --spring.data.mongodb.uri=${{ env.URL_MONGO }}
+          java -jar target/SpringAPIGROQ-0.0.1-SNAPSHOT.jar --groqcloud.api.key=${{ env.URL_CLOUD }} --groqcloud.api.endpoint=${{ env.URL_END }} --spring.data.mongodb.uri=${{ env.URL_MONGO }}
