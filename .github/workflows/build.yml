@@ -1,5 +1,4 @@
 name: SonarCloud + Docker Image
-
 on:
   push:
     branches:
@@ -10,7 +9,6 @@ on:
       - main
       - develop
     types: [opened, synchronize, reopened]
-
 jobs:
   build:
     name: Build, analyze, and Dockerize
