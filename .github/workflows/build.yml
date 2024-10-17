@@ -1,5 +1,4 @@
-name: SonarCloud
-
+name: SonarCloud + Docker Image
 on:
   push:
     branches:
@@ -10,33 +9,56 @@ on:
       - main
       - develop  # Se ejecutará en pull requests hacia las ramas main y develop
     types: [opened, synchronize, reopened]
+
 jobs:
   build:
-    name: Build and analyze
+    name: Build, analyze, and Dockerize
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Clonación completa para una mejor relevancia del análisis
+
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
           java-version: '21'  # Asegúrate de usar Java 21
           distribution: 'zulu'  # O considera usar otra distribución como 'temurin'
+
       - name: Cache SonarCloud packages
         uses: actions/cache@v4
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
+
       - name: Cache Maven packages
         uses: actions/cache@v4
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
-      - name: Build and analyze
+
+      - name: Build and analyze with SonarCloud
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Necesario para obtener información del PR
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # Token de SonarCloud
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=ElserManuel_AS222S5_T05_be
+
+      # Docker steps to be executed only on develop branch
+      - name: Build and push Docker image
+        if: github.ref == 'refs/heads/develop'  # Solo ejecutar en la rama develop
+        uses: docker/build-push-action@v5
+        with:
+          context: .  # Usar el contexto actual del repositorio
+          push: true  # Push automático a Docker Hub
+          tags: ${{ secrets.DOCKER_USERNAME }}/nombre-de-tu-imagen:latest  # Reemplaza con el nombre de la imagen
+          
+      - name: Log in to Docker Hub
+        if: github.ref == 'refs/heads/develop'
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
