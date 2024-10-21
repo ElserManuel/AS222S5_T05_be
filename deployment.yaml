@@ -17,7 +17,7 @@ spec:
       - name: microservice
         image: elsermanuel/elsermanueldocker
         ports:
-        - containerPort: 8081
+        - containerPort: 8081 # Asegurarse de que el puerto sea 8081
         resources:
           requests:
             cpu: "250m"
