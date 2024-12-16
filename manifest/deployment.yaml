@@ -14,34 +14,34 @@ spec:
         app: elsermanuel
     spec:
       containers:
-      - name: elsermanuel
-        image: elsermanuel/elsermanueldocker
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 8081
-        env:
-        - name: URL_CLOUD
-          valueFrom:
-            secretKeyRef:
-              name: elsermanuel-secret
-              key: GROQCLOUD_API_KEY
-        - name: URL_END
-          valueFrom:
-            secretKeyRef:
-              name: elsermanuel-secret
-              key: GROQCLOUD_ENDPOINT
-        - name: URL_MONGO
-          valueFrom:
-            secretKeyRef:
-              name: elsermanuel-secret
-              key: MONGODB_URI
-        readinessProbe:
-          tcpSocket:
-            port: 8081
-          initialDelaySeconds: 60
-          periodSeconds: 10
-        livenessProbe:
-          tcpSocket:
-            port: 8081
-          initialDelaySeconds: 90
-          periodSeconds: 20
+        - name: elsermanuel
+          image: elsermanuel/elsermanueldocker
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8081
+          env:
+            - name: URL_CLOUD
+              valueFrom:
+                secretKeyRef:
+                  name: elsermanuel-secret
+                  key: GROQCLOUD_API_KEY
+            - name: URL_END
+              valueFrom:
+                secretKeyRef:
+                  name: elsermanuel-secret
+                  key: GROQCLOUD_ENDPOINT
+            - name: URL_MONGO
+              valueFrom:
+                secretKeyRef:
+                  name: elsermanuel-secret
+                  key: MONGODB_URI
+          readinessProbe:
+            tcpSocket:
+              port: 8081
+            initialDelaySeconds: 60
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 8081
+            initialDelaySeconds: 90
+            periodSeconds: 20
