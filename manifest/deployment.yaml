@@ -21,9 +21,15 @@ spec:
         - containerPort: 8081
         env:
         - name: URL_CLOUD
-          value: "Bearer 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"  # Añadiendo Bearer aquí
+          valueFrom:
+            secretKeyRef:
+              name: elsermanuel-secret
+              key: GROQCLOUD_API_KEY
         - name: URL_END
-          value: "https://api.groq.com/openai/v1/chat/completions"
+          valueFrom:
+            secretKeyRef:
+              name: elsermanuel-secret
+              key: GROQCLOUD_ENDPOINT
         - name: URL_MONGO
           valueFrom:
             secretKeyRef:
