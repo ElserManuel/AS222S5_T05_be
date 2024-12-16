@@ -1,12 +1,12 @@
 groqcloud:
   api:
-    key: ${URL_CLOUD}
-    endpoint: ${URL_END}
+    key: Bearer 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
+    endpoint: https://api.groq.com/openai/v1/chat/completions
 
 spring:
   data:
     mongodb:
-      uri: ${URL_MONGO}
+      uri: mongodb+srv://elserlazaro:MroUxZM8CbXLMPKk@cluster0.brvyv.mongodb.net/MongoAtlaCompons?retryWrites=true&w=majority
 
 springdoc:
   swagger-ui:
